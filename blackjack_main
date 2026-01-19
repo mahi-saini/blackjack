@@ -1,0 +1,109 @@
+from assets.art import logo
+import random
+
+def add_card():
+    possible_cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    return random.choice(possible_cards)
+
+def scoring(hand:list):
+    total = sum(hand)
+    ace_count = sum(1 for card in hand if card == 11)
+
+    if total == 21 and len(hand) == 2:
+        total = 0
+
+    if ace_count > 0 and total > 21:
+        total -= 10
+        ace_count -= 1
+
+    return total
+
+def results(my_score:int, comp_score:int):
+    # check for blackjacks on either side first and then for bust
+    # lastly, if the user doesn't want to proceed forward
+    if my_score > 21:
+        print("You went over 21, it's a bust! You lose 😢")
+    elif comp_score > 21:
+        print("Computer went over 21! You win automatically 🤩")
+    elif comp_score == 0:
+        print("Computer has a Blackjack, it won! 🥲")
+    elif my_score == 0:
+        print("You have a Blackjack you win! ⭐️🏆")
+    elif my_score > comp_score:
+        print("You win 🥇")
+    elif my_score < comp_score:
+        print("You lose 😤")
+    elif my_score == comp_score:
+        print("It's a tie!")
+
+
+def play_blackjack():
+
+    # indicates start of game
+    print(logo)
+
+    my_cards = []
+    computer_cards = []
+
+    # if my_score == 0 or comp_score == 0:
+    #     print(f"    Your final hand: {my_cards}, final score: {my_score}")
+    #     print(f"    Computer's final hand: {computer_cards}, final score: {comp_score}")
+    #     results(my_score, comp_score)
+    #     return
+
+    # to start add 2 cards to self and computer, simplified with for loop
+    for add in range(2):
+        my_cards.append(add_card())
+        computer_cards.append(add_card())
+
+
+    playing = True
+
+    while playing:
+        my_score = scoring(my_cards)
+        # comp_score = scoring(computer_cards): not actually used here
+        print(f"    Your cards: {my_cards}, current score: {my_score} \n"
+               f"    Computer's first card: {computer_cards[0]}")
+
+        if my_score == 0 or my_score > 21:
+            playing = False
+            # return results(my_score, comp_score)
+        else:
+            continue_yn = input("Type 'y' to get another card, type 'n' to pass: ")
+
+            # not choosing a new card route
+            if continue_yn.lower() == "n":
+                playing = False
+
+            # draw new card route
+            if continue_yn.lower() == "y":
+                playing = True
+                my_cards.append(add_card())
+
+                # smart, yet fair choice made for computer
+    if scoring(my_cards) <= 21 and scoring(my_cards) != 0:
+        while scoring(computer_cards) < 17 and scoring(computer_cards) != 0:
+            computer_cards.append(add_card())
+
+        # final reveal
+    print(f"    Your final hand: {my_cards}, final score: {scoring(my_cards)}")
+    print(f"    Computer's final hand: {computer_cards}, final score: {scoring(computer_cards)}")
+
+    results(scoring(my_cards), scoring(computer_cards))
+
+    restart = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+
+    if restart.lower() == "y":
+        print("**" * 25 +
+              "\n" * 20 +
+              "**" * 25)
+        play_blackjack()
+    else:
+        print("Oh no! Rerun the program if you change your mind!")
+
+
+start = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+if start.lower() == "y":
+    play_blackjack()
+else:
+    print("Oh no! Rerun the program if you change your mind!")
