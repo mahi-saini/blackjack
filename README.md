@@ -29,19 +29,11 @@ The project focuses on clean control flow, modular function design, and handling
 ### The Game Setup
 - Bet: Place your wager before cards are dealt.
 - The Deal: Players receive two cards face up; the dealer receives one card face up and one face down (hole card).
-- Blackjack: An initial Ace and any 10-value card equals a "natural" blackjack, usually paying 3:2. 
+- Blackjack: An initial Ace and any 10-value card equals a "natural" blackjack, but you can still choose to continue and the Ace will to count for 1 point. 
 
 ### Player Actions (Your Turn)
 - Hit: Take another card to increase your total.
 - Stand: Keep your current total and end your turn.
-- Double Down: Double your initial bet to receive exactly one more card.
-- Split: If your first two cards are a pair, you can split them into two separate hands by placing a second bet.
-- Surrender: Give up half your bet to fold before playing the hand (if permitted). 
-
-### Dealer Rules
-- Reveal: The dealer reveals their hidden card.
-- 17 Rule: The dealer must hit on a total of 16 or less and stand on 17 or more.
-- Soft 17: In some casinos, the dealer must hit on a "soft 17" (an Ace and a 6). 
 
 ### *Key Tips* 
 - Never take insurance (a side bet on dealer blackjack).
